@@ -151,7 +151,7 @@ public class PiecePlacement {
      *
      * - The string must be exactly three characters long.
      * - It must be all in upper case.
-     * - The first character must represent a board position, using a character from 'A' to 'R'.
+     * - The first character must represent a board position, using a character from 'A' to 'P'.
      * - The second character must represent a piece, using a character from 'Q' to 'V'.
      * - The third character must represent the piece's orientation, using a character from 'W' to 'Z'.
      * @param triple A string that represents a piece.
