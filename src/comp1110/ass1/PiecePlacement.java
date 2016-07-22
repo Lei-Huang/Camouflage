@@ -17,7 +17,7 @@ package comp1110.ass1;
  * I J K L
  * M N O P
  *
- * Pieces are encoded with letters 'R' to 'V' (see the Pieces class).
+ * Pieces are encoded with letters 'Q' to 'V' (see the Pieces class).
  *
  * Orientations are encoded with letters 'W' to 'Z' (see the Orientation class).
  *
