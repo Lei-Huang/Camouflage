@@ -36,6 +36,9 @@ import static comp1110.ass1.Creature.*;
  *    X X
  *    X 3
  *
+ * The U piece is symmetric, so may only appear in the W and X
+ * rotations.
+ *
  * The squares within the piece are indexed.   Index 0
  * refers to the top left square within the grid, 1 refers
  * to the top right, and 2 refers to the bottom left (there
