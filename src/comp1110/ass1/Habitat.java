@@ -130,7 +130,7 @@ public class Habitat {
      * Determine whether a habitat is legal.  It must:
      * - be the correct length (16)
      * - have enough land to house all animals (5)
-     * - have enough water to house all fish (4)
+     * - have enough water to house all fish (6)
      */
     boolean isHabitatLegal() {
         if (places.length != PLACES) return false;
@@ -141,7 +141,7 @@ public class Habitat {
             if (p == Place.L) land++;
             else if (p == Place.W) water++;
         }
-        return (land >= 5 || water >= 4);
+        return (land >= 5 || water >= 6);
     }
 
 
