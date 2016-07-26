@@ -171,7 +171,7 @@ public class Habitat {
      * @return False if the place is off the board (-1) or it is not hostile to the creature
      */
     boolean isHostile(int place, Creature creature) {
-        return place > 0 && places[place].hostileTo(creature);
+        return place >= 0 && places[place].hostileTo(creature);
     }
 
 
