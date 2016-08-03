@@ -37,8 +37,8 @@ public class SolutionsTest {
             String[] sol = h.getSolutions();
             String ss = "";
             for(String s : sol) ss += " "+s;
-            assertTrue("Habitat " + hd[i] + " has two solutions, " + pd[i] + ", but got: " + ss, sol.length == 2);
-            assertTrue("Habitat " + hd[i] + " has the solutions: " + pd[i] + ", but got: " + ss, isomorphic(sol,(pd[i])));
+            assertTrue("Habitat " + hd[i] + " has two solutions: " + pd[i][0] + " and " + pd[i][1] + ", but got: " + ss, sol.length == 2);
+            assertTrue("Habitat " + hd[i] + " has two solutions: " + pd[i][0] + " and " + pd[i][1] + ", but got: " + ss, isomorphic(sol,(pd[i])));
         }
     }
 
