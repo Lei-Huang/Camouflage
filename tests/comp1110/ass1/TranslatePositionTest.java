@@ -17,7 +17,7 @@ public class TranslatePositionTest {
             Piece piece = Piece.values()[r.nextInt(Piece.values().length)];
             Orientation orientation = Orientation.W;
             int t = piece.translatePosition(0,origin,orientation);
-            assertTrue("Piece "+('A'+origin)+piece+orientation+", index 0 should be "+origin+" but was "+t,t==origin);
+            assertTrue("Piece "+(char)('A'+origin)+piece+orientation+", index 0 should be "+origin+" but was "+t,t==origin);
         }
     }
 
