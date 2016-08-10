@@ -51,10 +51,10 @@ public class TripleWellFormedTest {
             char badc = (char) ('A' + r.nextInt(Habitat.PLACES+Piece.values().length));
             String test = "";
             switch (r.nextInt(4)) {
-                case 0: test += bada+b+c; break;
-                case 1: test += a+badb+c; break;
-                case 2: test += a+b+badc; break;
-                default: test += bada+b+badc;
+                case 0: test += ""+bada+b+c; break;
+                case 1: test += ""+a+badb+c; break;
+                case 2: test += ""+a+b+badc; break;
+                default: test += ""+bada+b+badc;
             }
             assertFalse("Badly-formed placement string '" + test + " passed", PiecePlacement.isPieceTripleWellFormed(test));
         }
