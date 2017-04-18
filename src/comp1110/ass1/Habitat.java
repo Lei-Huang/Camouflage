@@ -1,6 +1,9 @@
 package comp1110.ass1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * This class represents a habitat, a four-by-four grid of places.
@@ -32,9 +35,48 @@ public class Habitat {
      *
      * @param difficulty A value between 0 (easiest) and 10 (hardest) specifying the desired level of difficulty.
      */
-    public Habitat (double difficulty) {
+    public Habitat(double difficulty) {
         // FIXME Task 9: replace this code with code that generates new habitats
-        this("WPLWLLLLLPPWWLWW");  // fix this: for now it just returns the same habitat all the time
+        coverageCount=0;
+        errorCount=0;
+        switch ((int) difficulty) {
+            case 0:
+                this.places=new Habitat("LLWWPWPWWPWPLLPL").getPlaces();
+                break;
+            case 1:
+                this.places=new Habitat("LWWLPWPWWPWPLLPL").getPlaces();
+                break;
+            case 2:
+                this.places=new Habitat("LWWLPWPWWPWPLLPL").getPlaces();
+                break;
+            case 3:
+                this.places=new Habitat("WLLWWPWPPWPWLPLL").getPlaces();
+                break;
+            case 4:
+                this.places=new Habitat("WLLWWPWPPWPWLPLL").getPlaces();
+                break;
+            case 5:
+                this.places=new Habitat("LWLWLWLWLWLWLWWP").getPlaces();
+                break;
+            case 6:
+                this.places=new Habitat("LWLWLWLWLWLWLWWP").getPlaces();
+                break;
+            case 7:
+                this.places=new Habitat("PWLWLWLWLWLWLWWP").getPlaces();
+                break;
+            case 8:
+                this.places=new Habitat("PWLWLWLWLWLWLWWP").getPlaces();
+                break;
+            case 9:
+                this.places=new Habitat("LWWWLLLLWWWWWWLW").getPlaces();
+                break;
+            case 10:
+                this.places=new Habitat("LWLLLWLPWLWPLWWL").getPlaces();
+                break;
+        }
+    }
+    public Place[] getPlaces(){
+        return places;
     }
 
 
@@ -66,8 +108,12 @@ public class Habitat {
      * @return The number of grid squares that currently have errors.
      */
     int getErrorCount() {
-        // FIXME Task 3: fix this code so that it correctly counts the number of errors
-        return 0;
+        int error= 0;
+        for (boolean i: placementErrors) {
+            if (i)
+                error++;
+        }
+        return error;
     }
 
 
@@ -78,8 +124,12 @@ public class Habitat {
      * @return The number of grid squares that are currently covered by at least one piece, according to the placementCoverage field.
      */
     int getCoverageCount() {
-        // FIXME Task 4: fix this code so that it correctly counts the number of grid squares that are covered
-        return 0;
+        coverageCount = 0;
+        for (int i:placementCoverage) {
+            if(i > 0)
+                coverageCount++;
+        }
+        return coverageCount;
     }
 
 
@@ -94,11 +144,171 @@ public class Habitat {
      * @return An array of strings representing the set of all solutions to this habitat
      */
     public String[] getSolutions() {
-        // FIXME Task 8: replace this code with code that determines all solutions to this habitat
-        String[] sol = {"CQWBRXLSYITZMVWOUW"};  // fix this: for now it doesn't actually solve the game, it just returns the same solution every time
+        ArrayList<String>solutions=new ArrayList<>();
+        ArrayList<String>Piece_Q=validPiecePlacement(0);
+        ArrayList<String>Piece_R=validPiecePlacement(1);
+        ArrayList<String>Piece_S=validPiecePlacement(2);
+        ArrayList<String>Piece_T=validPiecePlacement(3);
+        ArrayList<String>Piece_U=validPiecePlacement(4);
+        ArrayList<String>Piece_V=validPiecePlacement(5);
+
+        ArrayList<ArrayList>Pieces = new ArrayList<>();
+        Pieces.add(Piece_Q);
+        Pieces.add(Piece_R);
+        Pieces.add(Piece_S);
+        Pieces.add(Piece_T);
+        Pieces.add(Piece_U);
+        Pieces.add(Piece_V);
+
+//        Collections.sort(Pieces, new Comparator<ArrayList>() {
+//            @Override
+//            public int compare(ArrayList o1, ArrayList o2) {
+//                return o1.size()-o2.size();
+//            }
+//        });
+
+        Collections.sort(Pieces, (o1, o2) -> o1.size()-o2.size());
+
+        Queue Q = new Queue();
+        Queue R = new Queue();
+        Queue S = new Queue();
+        Queue T = new Queue();
+        Queue U = new Queue();
+
+        Q.queue = Pieces.get(0);
+        while (!Q.isempty()) {
+            String Q_current = Q.dequeue();
+            for (int i = 0; i < Pieces.get(1).size(); i++) {
+                if (isPlacementSound(Q_current+Pieces.get(1).get(i)))
+                    R.enqueue(Q_current+Pieces.get(1).get(i));
+            }
+        }
+        while (!R.isempty()) {
+            String R_current = R.dequeue();
+            for (int i = 0; i < Pieces.get(2).size(); i++) {
+                if (isPlacementSound(R_current+Pieces.get(2).get(i)))
+                    S.enqueue(R_current+Pieces.get(2).get(i));
+            }
+        }
+        while (!S.isempty()) {
+            String S_current = S.dequeue();
+            for (int i = 0; i < Pieces.get(3).size(); i++) {
+                if (isPlacementSound(S_current+Pieces.get(3).get(i)))
+                    T.enqueue(S_current+Pieces.get(3).get(i));
+            }
+        }
+        while (!T.isempty()) {
+            String T_current = T.dequeue();
+            for (int i = 0; i < Pieces.get(4).size(); i++) {
+                if (isPlacementSound(T_current+Pieces.get(4).get(i)))
+                    U.enqueue(T_current+Pieces.get(4).get(i));
+            }
+        }
+        while (!U.isempty()) {
+            String U_current = U.dequeue();
+            for (int i = 0; i < Pieces.get(5).size(); i++) {
+                if (isPlacementSound(U_current+Pieces.get(5).get(i)))
+                    solutions.add(U_current+Pieces.get(5).get(i));
+            }
+        }
+        String[]sol=new String[solutions.size()];
+        for (int i = 0; i < solutions.size(); i++) {
+            sol[i]=solutions.get(i);
+        }
         return sol;
     }
+    public  ArrayList<String> validPiecePlacement(int piece_num) {
+        ArrayList<String> output = new ArrayList<>();
+        char piece = (char) ('Q' + piece_num);
+        if (piece >='Q' && piece <= 'T') {
+            for (int i = 0; i < 16; i++) {
+                char position = (char) ('A' + i);
+                for (int j = 0; j < 4; j++) {
+                    char orentation = (char) ('W' + j);
+                    String placement = "" + position + piece + orentation;
+                    switch (orentation) {
+                        case ('W'):
+                            if (i % 4 == 3 || i >= 12)
+                                placement = "";
+                            break;
+                        case ('X'):
+                            if (i % 4 == 0 || i >= 12)
+                                placement = "";
+                            break;
+                        case ('Y'):
+                            if (i % 4 == 0 || i <= 3)
+                                placement = "";
+                            break;
+                        case ('Z'):
+                            if (i % 4 == 3 || i <= 3)
+                                placement = "";
+                            break;
+                    }
+                    if (placement == "")
+                        continue;
+                    if (isPlacementSound(placement))
+                        output.add(placement);
+                }
+            }
+        }
+        if (piece == 'U') {
+            for (int i = 0; i < 16; i++) {
+                char position = (char) ('A' + i);
+                for (int j = 0; j < 2; j++) {
+                    char orentation = (char) ('W' + j);
+                    String placement = "" + position + piece + orentation;
+                    switch (orentation) {
+                        case ('W'):
+                            if (i % 4 == 3)
+                                placement = "";
+                            break;
+                        case ('X'):
+                            if (i >= 12)
+                                placement = "";
+                            break;
+                    }
+                    if (placement == "")
+                        continue;
+                    if (isPlacementSound(placement))
+                        //                    System.out.println(placement);
+                        output.add(placement);
+                }
+            }
+        }
+        if (piece == 'V') {
+            for (int i = 0; i < 16; i++) {
+                char position = (char) ('A' + i);
+                for (int j = 0; j < 4; j++) {
+                    char orentation = (char) ('W' + j);
+                    String placement = "" + position + piece + orentation;
+                    switch (orentation) {
+                        case ('W'):
+                            if (i % 4 == 3)
+                                placement = "";
+                            break;
+                        case ('X'):
+                            if (i >= 12)
+                                placement = "";
+                            break;
+                        case ('Y'):
+                            if (i % 4 == 0)
+                                placement = "";
+                            break;
+                        case ('Z'):
+                            if (i <= 3)
+                                placement = "";
+                            break;
+                    }
+                    if (placement == "")
+                        continue;
+                    if (isPlacementSound(placement))
+                        output.add(placement);
+                }
+            }
+        }
 
+        return output;
+    }
 
     /**
      * Return the solution to the game.  The solution is calculated lazily, so first
@@ -209,8 +419,12 @@ public class Habitat {
     public boolean isPlacementSound(String placement) {
         if (!placement.equals(lastPlacement))
             renewPlacement(placement);
-
-        return errorCount == 0;
+        boolean output = true;
+        for (int i:getPlacementCoverage(placement)) {
+            if (i>1)
+                output=false;
+        }
+        return errorCount == 0 && output;
     }
 
 
@@ -286,5 +500,31 @@ public class Habitat {
             rtn += places[i];
         }
         return rtn;
+    }
+
+    class Queue{
+        ArrayList<String> queue;
+        Queue(){
+            queue= new ArrayList<>();
+        }
+        public void enqueue(String a){
+            queue.add(a);
+        }
+        public String dequeue(){
+            String output= queue.get(0);
+            queue.remove(output);
+            return output;
+        }
+        public boolean isempty(){
+            return queue.size()==0;
+        }
+        @Override
+        public String toString(){
+            String output="";
+            for (int i = 0; i < queue.size(); i++) {
+                output+=(output!="" ? ","+queue.get(i) :queue.get(i));
+            }
+            return output;
+        }
     }
 }

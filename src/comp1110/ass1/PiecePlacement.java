@@ -1,5 +1,7 @@
 package comp1110.ass1;
 
+import java.util.HashSet;
+
 /**
  * This class describes a particular placement of a piece.  It is described
  * in terms of three attributes:
@@ -116,8 +118,8 @@ public class PiecePlacement {
      * @return True if the string is a valid length.
      */
     static boolean isPlacementValidLength(String string) {
-        // FIXME Task 2: fix this code so that it determines whether the string is a valid length.
-        return true;
+        return string.length() % 3== 0
+                && string.length() <= 18;
     }
 
     /**
@@ -128,8 +130,11 @@ public class PiecePlacement {
      * @return True if the string does not contain duplicates.
      */
     static boolean isPlacementDuplicateFree(String placement) {
-        // FIXME Task 6: fix this code so that it correctly determines whether the placement string is free of duplicates
-        return true;
+        HashSet<String>pieces=new HashSet<>();
+        for (int i = 0; i < placement.length()/3; i++) {
+            pieces.add(placement.substring(3 * i, 3 * i + 3));
+        }
+        return placement.length()/3==pieces.size();
     }
 
     /**
@@ -158,7 +163,14 @@ public class PiecePlacement {
      * @return True if the string triple has the correct format for a piece placement description.
      */
     static boolean isPieceTripleWellFormed(String triple) {
-        // FIXME Task 5: determine whether this string is correctly formed (according to the rules in the comment above).
+        if (triple.length()!=3)
+            return false;
+        if ('A' > triple.charAt(0) || triple.charAt(0) >'P')
+            return false;
+        if ('Q' > triple.charAt(1) || triple.charAt(1) >'V')
+            return false;
+        if ('W' > triple.charAt(2) || triple.charAt(2) >'Z')
+            return false;
         return true;
     }
 

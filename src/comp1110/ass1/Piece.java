@@ -216,8 +216,38 @@ public enum Piece {
      * square, given the origin of the piece and its orientation, or -1 if the indexed
      * square is off the grid.
      */
-    int translatePosition(int index, int origin, Orientation orientation) {
-        // FIXME Task 7: correctly translate the position of the square referred to by the index
-        return -1;
+    public int translatePosition(int index, int origin, Orientation orientation) {
+        if (index == 0)
+            return origin;
+        int row = origin / 4;
+        int col = origin % 4;
+
+        int dd = index / 2;
+        int dr = index % 2;
+
+        switch (orientation){
+            case W:
+                row += dd;
+                col += dr;
+                break;
+            case X:
+                row += dr;
+                col -= dd;
+                break;
+            case Y:
+                row -= dd;
+                col -= dr;
+                break;
+            case Z:
+                row -= dr;
+                col += dd;
+                break;
+        }
+        if (col < 0
+                ||row < 0
+                ||col > 3
+                ||row > 3)
+            return -1;
+        return row * 4 +col;
     }
 }
